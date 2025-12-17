@@ -25,8 +25,10 @@ interface VidsObject {
   title: string;
   thumbnail: { url: string }[]; // assume array of objects with url
   formats: Format[]; // Add formats array to the interface
-  [key: string]: any; // optional catch-all for other fields
-  videoUrl?: string
+  description?: string;
+  videoUrl?: string;
+  // Optional catch-all for future fields without using `any`
+  [key: string]: unknown;
 }
 
 
