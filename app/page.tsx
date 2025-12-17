@@ -2,38 +2,18 @@
 
 "use client"
 
-import Image from "next/image";
 import HeadObject from "@/components/HeadObject";
 import EntryForm from "@/components/EntryForm"
 import Spinner from "@/components/Spinner";
 import { useEffect, useState } from "react";
 
 import SideBar from "@/components/SideBar";
-
 import PageFooter from "@/components/PageFooter";
-
-import Link from "next/link";
-
-const RAPIDAPI_API_KEY = process.env.NEXT_PUBLIC_RAPIDAPI_API_KEY;
+import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 
 
 
 
-const API_OPTIONS = {
-  method: "GET",
-  headers: {
-    "x-rapidapi-host": "yt-api.p.rapidapi.com",
-    "x-rapidapi-key": `${RAPIDAPI_API_KEY}`
-  }
-}
-
-
-
-interface Videos{
-
-
-  
-}
 
 interface Format {
   url: string;
@@ -99,43 +79,48 @@ export default function Home() {
   return (
 
 
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex min-h-screen bg-sky-400 text-foreground">
+      <SideBar 
+        imgSrc={vidsObject?.thumbnail?.[0]?.url} 
+        titleText={vidsObject?.title} 
+        videoDescription={vidsObject?.description} 
+        videoUrl={videoUrlToPass}  
+      />
 
+      <SidebarInset className="flex flex-col gap-10 px-4 py-8 md:px-8 lg:px-12">
+        <div className="flex items-center justify-between">
+          <SidebarTrigger className="inline-flex items-center gap-2 rounded-full bg-primary px-3 py-2 text-primary-foreground shadow-md hover:bg-primary/90 md:hidden">
+            ☰
+          </SidebarTrigger>
+          <span className="hidden text-sm text-foreground/80 md:inline">
+            Add a video ID to populate the sidebar downloads.
+          </span>
+        </div>
 
-      <Link href={`/vids/`}>
-      
-      </Link>
+        <div className="grid w-full items-start gap-8 lg:grid-cols-[1.05fr,0.95fr]">
+          <HeadObject />
 
-    {/* Pass the actual URL string to SideBar */}
-    <SideBar 
-      imgSrc={vidsObject?.thumbnail?.[0]?.url} 
-      titleText={vidsObject?.title} 
-      videoDescription={vidsObject?.description} 
-      videoUrl={videoUrlToPass}  
-    />
+          <div className="w-full max-w-2xl justify-self-center rounded-3xl bg-white/70 p-6 shadow-xl backdrop-blur md:p-8">
+            <EntryForm
+              onSubmit={handleSubmit}
+              videoIDValue={videoID}
+              onVideoIDChange={setVideoID}
+            />
 
-    
+            <div className="mt-6 flex flex-col items-center gap-2 text-center">
+              <div className="text-2xl md:text-3xl font-semibold">
+                {loading ? <Spinner />: "Enter a video ID above."}
+              </div>
 
-    <HeadObject />
+              <div className="text-base text-foreground/80">
+                {loading ? "Check the sidebar for download links." : "Downloads appear instantly in the sidebar for reuse."}
+              </div>
+            </div>
+          </div>
+        </div>
 
-    {/* <EntryForm onSubmit={handleSubmit}  /> */}
-
-    <EntryForm
-    onSubmit={handleSubmit}
-    videoIDValue={videoID}
-    onVideoIDChange={setVideoID}
-/>
-
-    <div className="text-4xl">{loading ? <Spinner />: "Enter a video ID above."} </div>
-
-    <div className="text-2xl">{loading ? "verify side bar for download": ""}</div>
-    
-
-    <div >
-
-    <PageFooter />
-    </div>
-
+        <PageFooter />
+      </SidebarInset>
     </div>
   );
 }

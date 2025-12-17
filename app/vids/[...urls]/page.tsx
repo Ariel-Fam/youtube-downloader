@@ -5,7 +5,7 @@
 "use client"
 
 import { useEffect } from "react";
-import SideBar from "@/components/SideBar";
+import { DownloadButton }from "@/components/Download";
 // No need to import React just for React.use() if we're not using it.
 
 function VideoDisplay({ params }: { params: { urls: string[] } }) {
@@ -28,23 +28,30 @@ function VideoDisplay({ params }: { params: { urls: string[] } }) {
      
 
     return (
-        <div className="flex flex-col items-center h-500 w-screen bg-black text-white sm:text-center sm:p-7">
-            {videoUrl && (
-                <video controls width="100%" height="auto" src={videoUrl} className="rounded-4xl">
-                    Your browser does not support the video tag.
-                </video>
-            )}
+        <div className="min-h-screen bg-black text-white">
+            <div className="mx-auto flex w-full max-w-5xl flex-col gap-8 px-4 py-8 md:py-12">
+                {videoUrl && (
+                    <div className="overflow-hidden flex flex-col items-center justify-center rounded-2xl border border-white/10 shadow-2xl">
+                        <video controls width="100%" height="auto" src={videoUrl} className="h-auto w-full" />
+                        <div>{<DownloadButton src={videoUrl} filename={title} />}</div>
+                    </div>
 
-            <h1 className="text-4xl mt-10 mb-20">{title}</h1>
-            <h3 className="w-200 bg-gray-600 p-14 rounded-3xl sm:scale-75 xs-scale-7m xm:scale-75">{description}</h3>
+                    
+                )}
 
-            <div className="flex flex-col w-screen h-auto items-center justify-center  ">
+                <h1 className="text-3xl md:text-4xl font-semibold text-center">{title}</h1>
+                <p className="rounded-2xl bg-gray-800 p-6 text-base md:text-lg leading-relaxed text-center md:text-left shadow-lg">
+                    {description}
+                </p>
 
-                <h3 className="mt-32 mb-10 text-4xl">Download Instructions: Where to find the download button</h3>
-
-                <video className="scale-70 rounded-2xl" src={"/downloadHere.mp4"} autoPlay muted loop></video>
+                <div className="space-y-4 rounded-2xl bg-gray-900/70 p-6 shadow-xl md:p-8">
+                    <h3 className="text-2xl md:text-3xl font-semibold text-center">Download instructions</h3>
+                    <p className="text-sm md:text-base text-gray-200 text-center">
+                        Locate the download button shown below.
+                    </p>
+                    <video className="w-full rounded-xl shadow-lg" src={"/downloadHere.mp4"} autoPlay muted loop playsInline></video>
+                </div>
             </div>
-
         </div>
     );
 }

@@ -1,13 +1,12 @@
 // components/SideBar.tsx
 
 "use client"
+
 import {
     Sidebar,
     SidebarContent,
-    SidebarFooter,
     SidebarHeader,
     SidebarGroup,
-    // SidebarGroupContent // Not used directly, can be removed if not needed elsewhere
 } from "@/components/ui/sidebar"
 
 import Image from "next/image"
@@ -17,315 +16,65 @@ import React, {useEffect, useState} from "react"
 import SideBarCard from "./SideBardCard"
 import Link from "next/link"
 
-
-
-
-
-
 type Videos = {
-
     imgSrc?: string
     titleText?: string
-    videoUrl?: string // This should now always be a string
+    videoUrl?: string
     videoDescription?: string
 }
 
-
-
-
-
-
 function SideBar({imgSrc, titleText, videoUrl, videoDescription}: Videos) {
-
-    const [videoStore, setVideoStore] = useState({})
-
     const [videoItems, setVideoItems] = useState<Videos[]>([]);
 
-
-    // const addVideos = async () => {
-
-    //     setVideoStore({imgSrc: videos.imgSrc, titleText: videos.titleText}
-    //     )
-
-        
-    //     return videoStore
-
-
-        
-    // }
-    
-
-
-
-    
-    // useEffect(() => {
-
-    //     const vids = addVideos()
-
-    //     const storeVids = () => {
-
-    //         setVideoItems([vids])
-    //     }
-
-    //     storeVids()
-        
-    // }, [videos.imgSrc, videos.titleText])
-
-
-
     useEffect(() => {
-    if (imgSrc && titleText && videoUrl) { // Add videoUrl to dependency
-        setVideoItems([{ imgSrc, titleText, videoUrl, videoDescription }]); // Include videoUrl and videoDescription
-    }
+      if (imgSrc && titleText && videoUrl) {
+        setVideoItems([{ imgSrc, titleText, videoUrl, videoDescription }]);
+      }
     }, [imgSrc, titleText, videoUrl, videoDescription]);
 
-
-    
-
-    
-    
-    
-
-
-
     return ( 
-        
-        <Sidebar>
-
+        <Sidebar className="border-sidebar-border bg-sidebar text-sidebar-foreground border-r">
             <SidebarHeader>
-
-
-                <div className="flex flex-col items-center mb-4">
-
-                <Image
-                    src="/space_pointer.png"
-                    alt="Vidlab Logo"
-                    height={400}
-                    width={400}
-                    quality={99}
-                    
-                />
-
-                <h1 className="text-4xl text-white">Downloads</h1>
+                <div className="flex flex-col items-center gap-2 pb-2 text-center">
+                  <Image
+                      src="/space_pointer.png"
+                      alt="Vidlab Logo"
+                      height={160}
+                      width={160}
+                      quality={99}
+                      className="h-24 w-24 md:h-28 md:w-28 object-contain drop-shadow"
+                  />
+                  <h1 className="text-2xl md:text-3xl font-semibold">Downloads</h1>
+                  <p className="text-sm text-sidebar-foreground/70">Your saved downloads stay in sync here.</p>
                 </div>
-
-
-
             </SidebarHeader>
 
-
-
-            <SidebarContent>
-
-                <SidebarGroup>
-
-
-                {videoItems.map((video, index) =>(
-
-
-
-          
-
-
-                    <div key={index}>
-                    {/* Encode URL components to handle special characters */}
-                    <Link 
-                      key={index} 
-                      href={`/vids/${encodeURIComponent(video.videoUrl || '')}/${encodeURIComponent(video.titleText || '')}/${encodeURIComponent(video.videoDescription || '')}`}
-                    >
-                    
-                    <SideBarCard
-                    key={index}
-                    titleText={video.titleText}
-                    imgSrc={video.imgSrc}
-                    />
-                    </Link>
-
-
-                    </div>
-
-
-
-                ))}
-                  
-             
-                    
-
-
+            <SidebarContent className="px-2 pb-4">
+                <SidebarGroup className="space-y-3">
+                  {videoItems.length === 0 ? (
+                    <p className="text-sm text-sidebar-foreground/70 px-2">
+                      Submit a video ID to see available downloads here.
+                    </p>
+                  ) : (
+                    videoItems.map((video, index) =>(
+                      <div key={index}>
+                        {/* Encode URL components to handle special characters */}
+                        <Link 
+                          href={`/vids/${encodeURIComponent(video.videoUrl || '')}/${encodeURIComponent(video.titleText || '')}/${encodeURIComponent(video.videoDescription || '')}`}
+                        >
+                          <SideBarCard
+                            titleText={video.titleText}
+                            imgSrc={video.imgSrc}
+                          />
+                        </Link>
+                      </div>
+                    ))
+                  )}
                 </SidebarGroup>
-
             </SidebarContent>
-
         </Sidebar>
-
      );
 }
 
 export default SideBar;
 
-
-
-
-
-
-
-
-// "use client"
-// import {
-//     Sidebar,
-//     SidebarContent,
-//     SidebarFooter,
-//     SidebarHeader,
-//     SidebarGroup,
-//     // SidebarGroupContent // Not used directly, can be removed if not needed elsewhere
-// } from "@/components/ui/sidebar"
-
-// import Image from "next/image"
-
-// import React, {useEffect, useState} from "react"
-
-// import SideBarCard from "./SideBardCard"
-// import Link from "next/link"
-
-
-
-
-
-
-// type Videos = {
-
-//     imgSrc?: string
-//     titleText?: string
-//     videoUrl?: string
-//     videoDescription?: string
-// }
-
-
-
-
-
-
-// function SideBar({imgSrc, titleText, videoUrl, videoDescription}: Videos) {
-
-//     const [videoStore, setVideoStore] = useState({})
-
-//     const [videoItems, setVideoItems] = useState<Videos[]>([]);
-
-
-//     // const addVideos = async () => {
-
-//     //     setVideoStore({imgSrc: videos.imgSrc, titleText: videos.titleText}
-//     //     )
-
-        
-//     //     return videoStore
-
-
-        
-//     // }
-    
-
-
-
-    
-//     // useEffect(() => {
-
-//     //     const vids = addVideos()
-
-//     //     const storeVids = () => {
-
-//     //         setVideoItems([vids])
-//     //     }
-
-//     //     storeVids()
-        
-//     // }, [videos.imgSrc, videos.titleText])
-
-
-
-//     useEffect(() => {
-//     if (imgSrc && titleText) {
-//         setVideoItems([{ imgSrc, titleText }]);
-//     }
-//     }, [imgSrc, titleText]);
-
-
-    
-
-    
-    
-    
-
-
-
-//     return ( 
-        
-//         <Sidebar>
-
-//             <SidebarHeader>
-
-
-//                 <div className="flex flex-col items-center mb-4">
-
-//                 <Image
-//                     src="/space_pointer.png"
-//                     alt="Vidlab Logo"
-//                     height={400}
-//                     width={400}
-//                     quality={99}
-                    
-//                 />
-
-//                 <h1 className="text-4xl text-white">Downloads</h1>
-//                 </div>
-
-
-
-//             </SidebarHeader>
-
-
-
-//             <SidebarContent>
-
-//                 <SidebarGroup>
-
-
-//                 {videoItems.map((video, index) =>(
-
-
-
-          
-
-
-//                     <div key={index}>
-
-//                     <Link key={index} href={`/vids/${videoUrl}/${titleText}/${videoDescription}`}>
-                    
-//                     <SideBarCard
-//                     key={index}
-//                     titleText={video.titleText}
-//                     imgSrc={video.imgSrc}
-//                     />
-//                     </Link>
-
-
-//                     </div>
-
-
-
-//                 ))}
-                  
-             
-                    
-
-
-//                 </SidebarGroup>
-
-//             </SidebarContent>
-
-//         </Sidebar>
-
-//      );
-// }
-
-// export default SideBar;

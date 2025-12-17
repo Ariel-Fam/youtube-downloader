@@ -1,89 +1,54 @@
 import React from "react";
-
 import Image from "next/image";
 
-import Styles from "@/app/home.module.css"
-
-
 function PageFooter() {
-    return ( 
-    
-    <div className= {`bg-white h-200 w-screen mt-20 flex flex-col items-center justify-center `}>
-
-        <div className="flex flex-row items-center justify-center sm:flex sm:flex-col sm:items-center sm:justify-center xs:flex xs:flex-col xs:items-center xs:justify-center xs:scale-75">
-
-            <div className="flex flex-col ">
-
-                <div className="flex flex-col items-center justify-center bg-gray-600 w-100 h-100 mr-10 mb-10 rounded-3xl sm:flex sm:flex-col sm:items-center sm:justify-center xs:flex xs:flex-col xs:items-center xs:justify-center xs:scale-75 ">
-
-                    <Image
-
-
-
-                    src={"/video_ID.png"}
-                    alt="img"
-                    width={400}
-                    height={400}
-
-                    className="xs:flex xs:flex-col xs:items-center xs:justify-center xs:scale-75"
-
-                    />
-
-                    
-
-                    
-                    
-
-                </div>
-
-
-                <h3 className=" text-2xl xs:scale-40 xm:scale-40 sm:scale-50">Download videos using their Youtube ID</h3>
-
-                
-
-
-
+  return (
+    <section className="w-full">
+      <div className="mx-auto mt-12 max-w-6xl rounded-3xl bg-white/80 backdrop-blur py-12 px-4 shadow-lg">
+        <div className="space-y-8">
+          <h2 className="text-center text-3xl md:text-4xl font-semibold text-gray-900">
+            Built for every screen
+          </h2>
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="flex flex-col items-center gap-4 rounded-2xl bg-gray-100 p-6 text-center shadow-sm">
+              <Image
+                src={"/video_ID.png"}
+                alt="Enter the video ID"
+                width={400}
+                height={400}
+                className="h-auto w-full max-w-xs md:max-w-sm object-contain"
+                priority
+              />
+              <p className="text-lg font-medium text-gray-900">
+                Download videos using their YouTube ID.
+              </p>
+              <p className="text-sm text-gray-700 max-w-md">
+                Paste the ID, submit, and we will fetch the available formats for you automatically.
+              </p>
             </div>
 
-            <div className="flex flex-col ">
-
-                <div className="flex flex-col items-center justify-center bg-gray-600 w-100 h-100 mr-10 mb-10 rounded-3xl">
-
-                    <Image
-
-                    className={"xs:flex xs:flex-col xs:items-center xs:justify-center xs:scale-75"}
-
-                    src={"/sideBar.png"}
-                    alt="img"
-                    width={400}
-                    height={400}
-
-                  
-
-                    />
-
-                    
-
-                    
-                    
-
-                </div>
-
-
-                <h3 className=" text-2xl wi">Video downloads are found in the sidebar</h3>
-
-                
-
-
-
+            <div className="flex flex-col items-center gap-4 rounded-2xl bg-gray-100 p-6 text-center shadow-sm">
+              <Image
+                src={"/sideBar.png"}
+                alt="Downloads sidebar"
+                width={400}
+                height={400}
+                className="h-auto w-full max-w-xs md:max-w-sm object-contain"
+                priority
+              />
+              <p className="text-lg font-medium text-gray-900">
+                Downloads stay in the sidebar.
+              </p>
+              <p className="text-sm text-gray-700 max-w-md">
+                Open the sidebar on mobile with the toggle button or keep it pinned on larger screens for quick access.
+              </p>
             </div>
-
-
-            
-
+          </div>
         </div>
-
-    </div> );
+      </div>
+    </section>
+  );
 }
 
 export default PageFooter;
+

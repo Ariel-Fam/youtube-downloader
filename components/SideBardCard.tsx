@@ -11,17 +11,17 @@ type SideBarCardProps = {
 
 function SideBarCard({ imgSrc, titleText }: SideBarCardProps) {
   return (
-    <div className="mb-4 p-2 bg-gray-500 rounded-xl">
+    <div className="mb-4 w-full rounded-xl bg-gray-500 p-2 shadow-sm">
       {imgSrc && (
         <Image
           src={imgSrc}
           alt="Thumbnail"
           width={200}
           height={120}
-          className="rounded-lg"
+          className="h-auto w-full rounded-lg object-cover"
         />
       )}
-      <h2 className="text-white mt-2">{titleText}</h2>
+      <h2 className="mt-2 text-sm font-medium text-white break-words">{titleText}</h2>
     </div>
   );
 }

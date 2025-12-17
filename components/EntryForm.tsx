@@ -19,16 +19,18 @@ export default function EntryForm({ onSubmit, videoIDValue, onVideoIDChange }: E
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="w-full space-y-4">
       <Textarea
         placeholder="Enter a Youtube Video ID"
         value={videoIDValue}
         onChange={(e) => onVideoIDChange(e.target.value)}
-        className="w-100 h-40 mb-4 bg-amber-50"
+        className="w-full min-h-32 md:min-h-36 bg-white/90 text-foreground rounded-2xl shadow-sm focus-visible:ring-2 focus-visible:ring-primary"
       />
-      <Button className="ml-64 mb-17 scale-150" type="submit">
-        <FolderDown /> Download
-      </Button>
+      <div className="flex justify-end">
+        <Button className="inline-flex items-center gap-2 px-4 py-2 text-base md:text-lg shadow-md" type="submit">
+          <FolderDown /> Download
+        </Button>
+      </div>
     </form>
   );
 }
