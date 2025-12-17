@@ -91,7 +91,7 @@ export default function Home() {
 
       <SidebarInset className="flex flex-col gap-10 px-4 py-8 md:px-8 lg:px-12">
         <div className="flex items-center justify-between">
-          <SidebarTrigger className="inline-flex items-center gap-2 rounded-full bg-primary px-3 py-2 text-primary-foreground shadow-md hover:bg-primary/90 md:hidden">
+          <SidebarTrigger className="fixed left-4 top-4 z-50 inline-flex items-center gap-2 rounded-full bg-primary px-3 py-2 text-primary-foreground shadow-md hover:bg-primary/90 md:hidden">
             ☰
           </SidebarTrigger>
           <span className="hidden text-sm text-foreground/80 md:inline">
