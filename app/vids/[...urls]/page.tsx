@@ -4,18 +4,19 @@
 
 "use client"
 
-import { useEffect } from "react";
+import { use, useEffect } from "react";
 import { DownloadButton }from "@/components/Download";
-// No need to import React just for React.use() if we're not using it.
 
-function VideoDisplay({ params }: { params: { urls: string[] } }) {
-    
+type Params = { urls: string[] };
+type PageProps = { params: Promise<Params> };
 
-   
-    // Access params directly as it's a Client Component
-    const videoUrl = decodeURIComponent(params.urls[0]);
-    const title = decodeURIComponent(params.urls[1]);
-    const description = decodeURIComponent(params.urls[2]);
+function VideoDisplay({ params }: PageProps) {
+    const resolvedParams = use(params);
+    const [rawUrl = "", rawTitle = "", rawDescription = ""] = resolvedParams.urls || [];
+
+    const videoUrl = decodeURIComponent(rawUrl);
+    const title = decodeURIComponent(rawTitle);
+    const description = decodeURIComponent(rawDescription);
 
     useEffect(() => {
         console.log("Video URL:", videoUrl);
@@ -23,20 +24,14 @@ function VideoDisplay({ params }: { params: { urls: string[] } }) {
         console.log("Description:", description);
     }, [videoUrl, title, description]);
 
-    
-
-     
-
     return (
         <div className="min-h-screen bg-black text-white">
             <div className="mx-auto flex w-full max-w-5xl flex-col gap-8 px-4 py-8 md:py-12">
                 {videoUrl && (
                     <div className="overflow-hidden flex flex-col items-center justify-center rounded-2xl border border-white/10 shadow-2xl">
                         <video controls width="100%" height="auto" src={videoUrl} className="h-auto w-full" />
-                        <div>{<DownloadButton src={videoUrl} filename={title} />}</div>
+                        <div><DownloadButton src={videoUrl} filename={title} /></div>
                     </div>
-
-                    
                 )}
 
                 <h1 className="text-3xl md:text-4xl font-semibold text-center">{title}</h1>
